@@ -45,7 +45,7 @@ exemptSubs = []
 i=0
 
 for comment in subreddit.stream.comments():
-    text=comment.body
+    text=comment.body.lower()
     if len(text)<50 or str(comment.subreddit).lower in exemptSubs:
         continue
     doc = nlp(text)
