@@ -65,7 +65,7 @@ for comment in subreddit.stream.comments():
             comment.reply(replyMsg)
         #rate limit handling incomplete
         except Exception as e:
-            time.sleep(700)
+            time.sleep(1000)
             # print(f"Error {type(e)} : {e}")
             # sys.exit()
         i+=1
