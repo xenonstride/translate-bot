@@ -4,6 +4,7 @@ from spacy_langdetect import LanguageDetector
 import boto3
 import praw
 import sys
+import time
 
 #language codes list
 langCodes = {
@@ -11,14 +12,12 @@ langCodes = {
     'en' : 'English',
     'fr' : 'French',
     'de' : 'German',
-    'el' : 'Greek (Modern)',
     'it' : 'Italian',
     'ja' : 'Japanese',
     'ko' : 'Korean',
     'pt' : 'Portuguese',
     'ru' : 'Russian',
     'es' : 'Spanish',
-    'sv' : 'Swedish',
 }
 
 #spacy language detect init
@@ -50,9 +49,9 @@ for comment in subreddit.stream.comments():
     if len(text)<50 or str(comment.subreddit).lower in exemptSubs:
         continue
     doc = nlp(text)
-    if doc._.language['score']*100<90:
-        continue
     sourceLang = doc._.language['language']
+    if doc._.language['score']*100<90 or sourceLang not in langCodes.keys():
+        continue
     if sourceLang !='en':
         res = translator.translate_text(
             Text=text,
@@ -64,8 +63,10 @@ for comment in subreddit.stream.comments():
         replyMsg+=translated
         try:
             comment.reply(replyMsg)
+        #rate limit handling incomplete
         except Exception as e:
-            print(f"Error {type(e)} : {e}")
-            sys.exit()
+            time.sleep(700)
+            # print(f"Error {type(e)} : {e}")
+            # sys.exit()
         i+=1
         print(f"Comments Translated : {i}")
