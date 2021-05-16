@@ -12,7 +12,6 @@ langCodes = {
     'en' : 'English',
     'fr' : 'French',
     'de' : 'German',
-    'it' : 'Italian',
     'ja' : 'Japanese',
     'ko' : 'Korean',
     'pt' : 'Portuguese',
