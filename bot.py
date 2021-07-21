@@ -29,8 +29,8 @@ nlp.add_pipe('language_detector', last=True)
 
 #boto3 translator init
 translator=boto3.client('translate',
-                        aws_access_key_id='AKIAJCCGCJMWIVKQRVTA',
-                        aws_secret_access_key='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',
+                        aws_access_key_id='XXXXXXXXXXXXXXXXXXXXXXXXX',
+                        aws_secret_access_key='XXXXXXXXXXXXXXXXXXXXXXXXXXX',
                         region_name="ap-south-1")
 
 #reddit praw init
